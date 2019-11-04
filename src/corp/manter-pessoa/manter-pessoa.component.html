@@ -42,10 +42,14 @@
                                 </div>
                                 <div class="field-container">
                                         <mat-form-field >  
-                                                <input formControlName="cpf" matInput placeholder="CPF" required>  
+                                                <input formControlName="cpf" minlength="11" maxlength="11" matInput placeholder="CPF" required>  
                                             </mat-form-field>  
                                             <mat-error>  
                                                 <span *ngIf="!formPessoa.get('cpf').valid && formPessoa.get('cpf').touched">CPF obrigatório</span>  
+                                                <mat-error
+                                                        *ngIf="formPessoa.controls.cpf.hasError('minlength') ||  formPessoa.controls.cpf.hasError('maxlength')">
+                                                        O campo CPF tem que conter 11 dígitos.
+                                                </mat-error>
                                             </mat-error>
                                 </div>
                                 <div class="field-container">
