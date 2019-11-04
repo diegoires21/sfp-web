@@ -14,6 +14,9 @@ import { PopUpMsgConfirmComponent } from './pop-up-msg-confirm/pop-up-msg-confir
 import { PopUpMsgComponent } from './pop-up-msg/pop-up-msg.component';
 import { ListarPessoaComponent } from './listar-pessoa/listar-pessoa.component';
 
+import { HttpsRequestInterceptorService } from './service/https-request-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [ManterPessoaComponent,PopLoadComponent,PopUpMsgConfirmComponent,PopUpMsgComponent, ListarPessoaComponent],
@@ -24,9 +27,15 @@ import { ListarPessoaComponent } from './listar-pessoa/listar-pessoa.component';
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule
+    
   ],
   entryComponents:[PopLoadComponent,PopUpMsgConfirmComponent,PopUpMsgComponent],
-  providers: [RestApiService,LoadService,MessageService,PopLoadComponent,PopUpMsgConfirmComponent,PopUpMsgComponent],
+  providers: [RestApiService,LoadService,MessageService,PopLoadComponent,PopUpMsgConfirmComponent,PopUpMsgComponent,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpsRequestInterceptorService,
+      multi: true,
+    }],
   exports:[PopLoadComponent,PopUpMsgConfirmComponent,PopUpMsgComponent]
 })
 export class CorpModule { }
