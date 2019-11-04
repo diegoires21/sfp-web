@@ -14,6 +14,7 @@ import { PopUpDto, PopUpType } from '../entidade/pop-up-dto';
 import { MatDialog } from '@angular/material';
 import { PopUpMsgComponent } from '../pop-up-msg/pop-up-msg.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpErro } from '../service/http-erro';
 
 @Component({
   selector: 'app-manter-pessoa',
@@ -111,6 +112,15 @@ export class ManterPessoaComponent implements OnInit {
         data: popUpConf
     });
   }
+  erroOperacao(e: HttpErro): void{
+    const popUpConf = new PopUpDto();
+    popUpConf.popUpType = PopUpType.INFO;
+    popUpConf.msg = { type: MessageType.Info, message: e.mensagem};
+    const dialogRef = this.dialog.open(PopUpMsgComponent, {
+        width: '300px',
+        data: popUpConf
+    });
+  }
   onSubmit(): void{
     if(this.formPessoa.valid){
       let pessoa = this.formPessoa.value as Pessoa;
@@ -118,7 +128,7 @@ export class ManterPessoaComponent implements OnInit {
       promisse.then(e=>{
         this.sucessoOperacao();
       }).catch(e=>{
-        console.log(e);
+        this.erroOperacao(e);
       }).finally(()=>{
         this.loadService.hider();
       });;
