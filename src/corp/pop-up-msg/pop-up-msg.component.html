@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{popUp.title}}</h1>
+<div mat-dialog-content>
+    <mat-icon>report</mat-icon> {{popUp.msg.message}}
+</div>
+<div mat-dialog-actions>
+  
+  <button mat-raised-button *ngIf="popUp.actionOk"	 	color="primary" (click)="ok()" >Sim</button>
+  <button  mat-button  *ngIf="popUp.actionOk"	color="primary" (click)="cancelar()" >Não</button>
+  <button mat-raised-button *ngIf="!popUp.actionOk"	 	color="primary" (click)="ok()" >OK  </button>
+</div>
+
+

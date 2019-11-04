@@ -1,0 +1,118 @@
+
+
+<!-- Main Toolbar of an App -->  
+<mat-toolbar color="accent">  
+        <span>Manter Pessoa</span>      
+</mat-toolbar>  
+
+
+        <mat-card>  
+                <!-- Title of an Card -->  
+                <mat-card-title>  
+                    Cadastrar Pessoa  
+                </mat-card-title>  
+                <mat-card-content>  
+                        <form [formGroup]="formPessoa" (ngSubmit)="onSubmit()" novalidate>
+                                <div class="field-container">
+                                        <mat-form-field >  
+                                                <input formControlName="nome" matInput placeholder="Nome" required>  
+                                            </mat-form-field>  
+                                            <mat-error>  
+                                                <span *ngIf="!formPessoa.get('nome').valid && formPessoa.get('nome').touched">O campo nome é obrigatório</span>  
+                                            </mat-error>
+                                </div>
+                                <div class="field-container">
+
+                                        <mat-form-field >  
+                                                <input formControlName="email" matInput placeholder="E-mail" required>  
+                                            </mat-form-field>  
+                                            <mat-error>  
+                                                <span *ngIf="!formPessoa.get('email').valid && formPessoa.get('email').touched">E-mail inválido</span>  
+                                            </mat-error>
+
+                                </div>
+                                <div class="field-container">
+                                        <mat-form-field>
+                                                <mat-label>Sexo</mat-label>
+                                                <select formControlName="sexo" matNativeControl required>
+                                                  <option value="MASCULINO">Masculino</option>
+                                                  <option value="FEMININO">Feminino</option>
+                                                </select>
+                                              </mat-form-field>
+                                </div>
+                                <div class="field-container">
+                                        <mat-form-field >  
+                                                <input formControlName="cpf" matInput placeholder="CPF" required>  
+                                            </mat-form-field>  
+                                            <mat-error>  
+                                                <span *ngIf="!formPessoa.get('cpf').valid && formPessoa.get('cpf').touched">CPF obrigatório</span>  
+                                            </mat-error>
+                                </div>
+                                <div class="field-container">
+                                        <mat-form-field>
+                                                <mat-label>Nascionalidades</mat-label>
+                                                <mat-select formControlName="nascionalidades" multiple>
+                                                  <mat-option *ngFor="let paisCurrent of paises" [value]="paisCurrent.id">{{paisCurrent.nascionalidade}}</mat-option>
+                                                </mat-select>
+                                              </mat-form-field>
+                                            
+                                </div>
+                                <div class="field-container">
+                                        <mat-form-field>
+                                                <input matInput formControlName="nascimento" [matDatepicker]="picker" placeholder="Data Nascimento:" required>
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                                <mat-error>  
+                                                          <span *ngIf="!formPessoa.get('nascimento').valid && formPessoa.get('nascimento').touched">Data Nascimento obrigatório</span>  
+                                                </mat-error>
+                                        </mat-form-field>
+                                </div>
+                                
+                                <div fxLayout="row">
+                                        <div fxFlex="50%">
+                                                <div class="field-container">
+                                                <mat-form-field>
+                                                        <mat-label>Pais de Naturalidade</mat-label>
+                                                        <mat-select [formControl]="idPaisNatu" (ngModelChange)="changePais($event)" >
+                                                          <mat-option *ngFor="let paisCurrent of paises" [value]="paisCurrent.id">{{paisCurrent.nome}}</mat-option>
+                                                        </mat-select>
+                                                      </mat-form-field>
+                                                    </div>
+                                        </div>
+                                        <div fxFlex="50%">
+                                                        <div class="field-container">
+                                                                <mat-form-field>
+                                                                        <mat-label>Estado de Naturalidade</mat-label>
+                                                                        <mat-select [formControl]="idEstado" (ngModelChange)="changeEstado($event)">
+                                                                        <mat-option *ngFor="let estadosCurrent of estados" [value]="estadosCurrent.id">{{estadosCurrent.nome}}</mat-option>
+                                                                        </mat-select>
+                                                                        
+                                                                </mat-form-field>
+                                                        </div>
+
+                                        </div>
+                                </div>
+                                <div fxLayout="row">
+                                        <div fxFlex>
+                                                <div class="field-container">
+                                                        <mat-form-field>
+                                                        <mat-label>Cidade de Naturalidade</mat-label>
+                                                                <mat-select formControlName="idNaturalidade" >
+                                                                        <mat-option *ngFor="let cidadeCurrent of cidades" [value]="cidadeCurrent.id">{{cidadeCurrent.nome}}</mat-option>
+                                                                        </mat-select>
+                                                        </mat-form-field>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div fxLayout="row">
+                                                <div fxFlex>
+                                                                <button mat-raised-button color="primary" type="submit" mat-button>Save</button>
+                                                </div>
+                                                <div fxFlex>
+                                                                <button mat-raised-button color="primary" type="button" (click)="voltar()" mat-button>Voltar</button>
+                                                </div>
+                                </div>
+                                
+                        </form>
+                </mat-card-content>
+        </mat-card>
